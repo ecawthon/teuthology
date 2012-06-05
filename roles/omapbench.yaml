@@ -1,0 +1,54 @@
+interactive-on-error: true
+roles:
+- - mon.0
+  - osd.0
+  - mon.1
+#  - client.2
+- - osd.1
+- - osd.2
+  - mon.2
+  - client.0
+#  - client.1
+- - osd.3
+#- - osd.4
+#- - osd.5
+overrides:
+  ceph:
+#    valgrind:
+#       osd.0: [--tool=memcheck]
+#       osd.1: [--tool=memcheck]
+#       osd.2: [--tool=memcheck]
+    #   osd.3: [--tool=memcheck, --leak-check=full]
+    fs: xfs
+    block_journal: true
+    log-whitelist:
+    - clocks not synchronized
+    path: /home/eleanor/ceph
+    conf:
+      osd:
+        lockdep : false
+        debug osd : 20
+        debug ms : 10
+        debug filestore : 20
+        debug journal : 20
+        debug objecter : 20
+        debug ms : 0
+        debug client : 20
+        journal aio : true
+        filestore flusher : false
+        filestore xattrs use omap : true
+        filestore max inline xattr size : 0
+        osd map dedup : false
+#kernel:
+tasks:
+- ceph: null
+- omapbench:
+    clients:
+    - client.0
+    objects: 100
+    threads: 9
+    entries: 1
+    keysize: 1
+    valsize: 1
+    increment: 1
+    omaptype: uniform
