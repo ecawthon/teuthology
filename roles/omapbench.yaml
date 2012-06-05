@@ -50,5 +50,5 @@ tasks:
     entries: 1
     keysize: 1
     valsize: 1
-    increment: 1
+    inc: 1
     omaptype: uniform

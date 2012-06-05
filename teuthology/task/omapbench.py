@@ -33,7 +33,7 @@ def task(ctx, config):
 		      entries: 10
 		      keysize: 10
 		      valsize: 100
-		      increment: 100
+		      inc: 100
 		      omaptype: uniform
 		  - interactive:
     """
@@ -41,7 +41,6 @@ def task(ctx, config):
     assert isinstance(config, dict), \
         "please list clients to run on"
     omapbench = {}
-    print(str(config.get('increment',-1)))
     for role in config.get('clients', ['client.0']):
         assert isinstance(role, basestring)
         PREFIX = 'client.'
@@ -64,7 +63,7 @@ def task(ctx, config):
                           '--entries', str(config.get('entries',10)),
                           '--keysize', str(config.get('keysize',10)),
                           '--valsize', str(config.get('valsize',1000)),
-                          '--inc', str(config.get('increment',10)),
+                          '--inc', str(config.get('inc',10)),
                           '--omaptype', str(config.get('omaptype','uniform'))
                           ]),
                 ],
