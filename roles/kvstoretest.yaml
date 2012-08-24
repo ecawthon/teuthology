@@ -1,0 +1,67 @@
+interactive-on-error: true
+roles:
+- - mon.0
+  - osd.0
+  - mon.1
+#  - osd.6
+  - client.2
+- - osd.1
+#  - osd.4
+  - client.3
+- - osd.2
+#  - osd.7
+  - mon.2
+  - client.0
+  - client.1
+- - osd.3
+#  - osd.5
+  - client.4
+#- - osd.4
+#- - osd.5
+overrides:
+  ceph:
+#    valgrind:
+#       osd.0: [--tool=memcheck]
+#       osd.1: [--tool=memcheck]
+#       osd.2: [--tool=memcheck]
+    #   osd.3: [--tool=memcheck, --leak-check=full]
+    fs: xfs
+    block_journal: true
+    log-whitelist:
+    - clocks not synchronized
+    path: /home/eleanor/ceph
+    conf:
+      osd:
+        lockdep : false
+        debug osd : 20
+        debug filestore : 20
+        debug journal : 20
+        debug objecter : 20
+        debug ms : 1
+        debug client : 20
+#        debug objclass : 20
+        journal aio : true
+        filestore flusher : false
+        filestore xattrs use omap : true
+        filestore max inline xattr size : 0
+        osd map dedup : false
+#kernel:
+tasks:
+- ceph: null
+- kvstoretest:
+    clients:
+    - client.0
+    - client.1
+    - client.2
+    - client.3
+    - client.4
+    operations: 1000
+    entries: 106700
+    k: 1500
+    keysize: 5
+    valsize: 128000
+    increment: 10
+    distribution: 25 25 25 25
+    in-flight: 300
+    cachesize: 1000
+    cacherefresh: 20
