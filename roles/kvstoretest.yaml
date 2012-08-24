@@ -1,8 +1,9 @@
 interactive-on-error: true
+check-locks: false
 roles:
 - - mon.0
   - osd.0
-  - mon.1
+#  - mon.1
 #  - osd.6
   - client.2
 - - osd.1
@@ -10,7 +11,7 @@ roles:
   - client.3
 - - osd.2
 #  - osd.7
-  - mon.2
+#  - mon.2
   - client.0
   - client.1
 - - osd.3
@@ -47,6 +48,7 @@ overrides:
         osd map dedup : false
 #kernel:
 tasks:
+- clock: null
 - ceph: null
 - kvstoretest:
     clients:
@@ -56,12 +58,12 @@ tasks:
     - client.3
     - client.4
     operations: 1000
-    entries: 106700
-    k: 1500
+    entries: 820100
+    k: 1600
     keysize: 5
-    valsize: 128000
+    valsize: 16000
     increment: 10
     distribution: 25 25 25 25
-    in-flight: 300
+    in-flight: 80
     cachesize: 1000
     cacherefresh: 20

@@ -33,14 +33,14 @@ def task(ctx, config):
                 run.Raw(';'),
                 'sudo',
                 'ntpdate',
-                'clock1.dreamhost.com',
+#                'clock1.dreamhost.com',
                 'clock2.dreamhost.com',
-                'clock3.dreamhost.com',
-                run.Raw(';'),
-                'sudo',
-                'service', 'ntp', 'start',
-                run.Raw(';'),
-                'ntpdc', '-p',
+#                'clock3.dreamhost.com',
+#                run.Raw(';'),
+#                'sudo',
+#                'service', 'ntp', 'start',
+#                run.Raw(';'),
+#                'ntpdc', '-p',
                 ],
             logger=log.getChild(rem.name),
         )
@@ -50,10 +50,10 @@ def task(ctx, config):
 
     finally:
         log.info('Checking final clock skew...')
-        for rem in ctx.cluster.remotes.iterkeys():
-            rem.run(
-                args=[
-                    'ntpdc', '-p',
-                    ],
-                logger=log.getChild(rem.name),
-                )
+#        for rem in ctx.cluster.remotes.iterkeys():
+#            rem.run(
+#                args=[
+#                    'ntpdc', '-p',
+#                    ],
+#                logger=log.getChild(rem.name),
+#                )
